@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { AssetModule } from './asset/asset.module';
 import { AIModule } from './ai/ai.module';
+import { TextModule } from './studios/text/text.module';
 import { HealthModule } from './health/health.module';
 import { CommonModule } from './common/common.module';
 import { User } from './auth/entities/user.entity';
@@ -21,6 +22,8 @@ import { AssetVersion } from './asset/entities/asset-version.entity';
 import { AuditLog } from './common/entities/audit-log.entity';
 import { Model } from './ai/entities/model.entity';
 import { ModelUsage } from './ai/entities/model-usage.entity';
+import { TextDocument } from './studios/text/entities/text-document.entity';
+import { TextVersion } from './studios/text/entities/text-version.entity';
 
 @Module({
   imports: [
@@ -51,6 +54,8 @@ import { ModelUsage } from './ai/entities/model-usage.entity';
         AuditLog,
         Model,
         ModelUsage,
+        TextDocument,
+        TextVersion,
       ],
       migrations: ['dist/migrations/*.js'],
       synchronize: process.env.NODE_ENV === 'development',
@@ -79,6 +84,7 @@ import { ModelUsage } from './ai/entities/model-usage.entity';
     WorkspaceModule,
     AssetModule,
     AIModule,
+    TextModule,
   ],
   controllers: [],
   providers: [],
