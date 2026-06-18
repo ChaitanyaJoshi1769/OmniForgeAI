@@ -6,8 +6,10 @@ import { ConfigService } from '@nestjs/config';
 import { User } from './entities/user.entity';
 import { ApiKey } from './entities/api-key.entity';
 import { AuthService } from './services/auth.service';
+import { OAuthService } from './services/oauth.service';
 import { UserRepository } from './repositories/user.repository';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { GoogleOAuthStrategy, GitHubOAuthStrategy, MicrosoftOAuthStrategy } from './strategies/oauth.strategy';
 import { AuthResolver } from './resolvers/auth.resolver';
 
 @Module({
@@ -26,10 +28,14 @@ import { AuthResolver } from './resolvers/auth.resolver';
   ],
   providers: [
     AuthService,
+    OAuthService,
     UserRepository,
     JwtStrategy,
+    GoogleOAuthStrategy,
+    GitHubOAuthStrategy,
+    MicrosoftOAuthStrategy,
     AuthResolver,
   ],
-  exports: [AuthService, UserRepository, JwtModule, PassportModule],
+  exports: [AuthService, OAuthService, UserRepository, JwtModule, PassportModule],
 })
 export class AuthModule {}

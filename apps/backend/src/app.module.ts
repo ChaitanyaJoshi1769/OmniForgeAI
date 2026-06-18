@@ -7,14 +7,17 @@ import { AuthModule } from './auth/auth.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { AssetModule } from './asset/asset.module';
 import { HealthModule } from './health/health.module';
+import { CommonModule } from './common/common.module';
 import { User } from './auth/entities/user.entity';
 import { ApiKey } from './auth/entities/api-key.entity';
 import { Organization } from './workspace/entities/organization.entity';
 import { Workspace } from './workspace/entities/workspace.entity';
 import { OrganizationMember } from './workspace/entities/organization-member.entity';
 import { WorkspaceMember } from './workspace/entities/workspace-member.entity';
+import { Invitation } from './workspace/entities/invitation.entity';
 import { Asset } from './asset/entities/asset.entity';
 import { AssetVersion } from './asset/entities/asset-version.entity';
+import { AuditLog } from './common/entities/audit-log.entity';
 
 @Module({
   imports: [
@@ -39,8 +42,10 @@ import { AssetVersion } from './asset/entities/asset-version.entity';
         Workspace,
         OrganizationMember,
         WorkspaceMember,
+        Invitation,
         Asset,
         AssetVersion,
+        AuditLog,
       ],
       migrations: ['dist/migrations/*.js'],
       synchronize: process.env.NODE_ENV === 'development',
@@ -59,6 +64,9 @@ import { AssetVersion } from './asset/entities/asset-version.entity';
         },
       },
     }),
+
+    // Common/Shared modules
+    CommonModule,
 
     // Feature modules
     HealthModule,
