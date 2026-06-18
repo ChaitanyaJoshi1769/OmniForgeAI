@@ -8,6 +8,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
 import { AssetModule } from './asset/asset.module';
 import { AIModule } from './ai/ai.module';
 import { TextModule } from './studios/text/text.module';
+import { ImageModule } from './studios/image/image.module';
 import { HealthModule } from './health/health.module';
 import { CommonModule } from './common/common.module';
 import { User } from './auth/entities/user.entity';
@@ -24,6 +25,8 @@ import { Model } from './ai/entities/model.entity';
 import { ModelUsage } from './ai/entities/model-usage.entity';
 import { TextDocument } from './studios/text/entities/text-document.entity';
 import { TextVersion } from './studios/text/entities/text-version.entity';
+import { ImageAsset } from './studios/image/entities/image-asset.entity';
+import { ImageVersion } from './studios/image/entities/image-version.entity';
 
 @Module({
   imports: [
@@ -56,6 +59,8 @@ import { TextVersion } from './studios/text/entities/text-version.entity';
         ModelUsage,
         TextDocument,
         TextVersion,
+        ImageAsset,
+        ImageVersion,
       ],
       migrations: ['dist/migrations/*.js'],
       synchronize: process.env.NODE_ENV === 'development',
@@ -85,6 +90,7 @@ import { TextVersion } from './studios/text/entities/text-version.entity';
     AssetModule,
     AIModule,
     TextModule,
+    ImageModule,
   ],
   controllers: [],
   providers: [],
