@@ -7,6 +7,14 @@ import { AuthModule } from './auth/auth.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { AssetModule } from './asset/asset.module';
 import { HealthModule } from './health/health.module';
+import { User } from './auth/entities/user.entity';
+import { ApiKey } from './auth/entities/api-key.entity';
+import { Organization } from './workspace/entities/organization.entity';
+import { Workspace } from './workspace/entities/workspace.entity';
+import { OrganizationMember } from './workspace/entities/organization-member.entity';
+import { WorkspaceMember } from './workspace/entities/workspace-member.entity';
+import { Asset } from './asset/entities/asset.entity';
+import { AssetVersion } from './asset/entities/asset-version.entity';
 
 @Module({
   imports: [
@@ -24,7 +32,16 @@ import { HealthModule } from './health/health.module';
       username: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'omniforge',
-      entities: ['dist/**/*.entity.js'],
+      entities: [
+        User,
+        ApiKey,
+        Organization,
+        Workspace,
+        OrganizationMember,
+        WorkspaceMember,
+        Asset,
+        AssetVersion,
+      ],
       migrations: ['dist/migrations/*.js'],
       synchronize: process.env.NODE_ENV === 'development',
       logging: process.env.NODE_ENV === 'development',
