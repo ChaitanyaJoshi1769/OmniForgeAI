@@ -3,14 +3,31 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+
+// Core Modules
 import { AuthModule } from './auth/auth.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { AssetModule } from './asset/asset.module';
 import { AIModule } from './ai/ai.module';
-import { TextModule } from './studios/text/text.module';
-import { ImageModule } from './studios/image/image.module';
 import { HealthModule } from './health/health.module';
 import { CommonModule } from './common/common.module';
+
+// Studio Modules
+import { TextModule } from './studios/text/text.module';
+import { ImageModule } from './studios/image/image.module';
+import { VideoModule } from './studios/video/video.module';
+import { AudioModule } from './studios/audio/audio.module';
+import { DocumentModule } from './studios/document/document.module';
+import { CodeModule } from './studios/code/code.module';
+import { ThreeDModule } from './studios/threed/threed.module';
+
+// Advanced Modules
+import { WorkflowModule } from './advanced/workflow/workflow.module';
+import { AgentModule } from './advanced/agents/agents.module';
+import { GovernanceModule } from './advanced/governance/governance.module';
+import { MarketplaceModule } from './advanced/marketplace/marketplace.module';
+
+// Entities
 import { User } from './auth/entities/user.entity';
 import { ApiKey } from './auth/entities/api-key.entity';
 import { Organization } from './workspace/entities/organization.entity';
@@ -27,16 +44,20 @@ import { TextDocument } from './studios/text/entities/text-document.entity';
 import { TextVersion } from './studios/text/entities/text-version.entity';
 import { ImageAsset } from './studios/image/entities/image-asset.entity';
 import { ImageVersion } from './studios/image/entities/image-version.entity';
+import { VideoAsset } from './studios/video/entities/video-asset.entity';
+import { VideoSegment } from './studios/video/entities/video-segment.entity';
+import { AudioAsset } from './studios/audio/entities/audio-asset.entity';
+import { Document } from './studios/document/entities/document.entity';
+import { CodeRepository } from './studios/code/entities/code-repository.entity';
+import { Model3D } from './studios/threed/entities/model-3d.entity';
 
 @Module({
   imports: [
-    // Configuration
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.local', '.env'],
     }),
 
-    // Database
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
@@ -45,29 +66,17 @@ import { ImageVersion } from './studios/image/entities/image-version.entity';
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'omniforge',
       entities: [
-        User,
-        ApiKey,
-        Organization,
-        Workspace,
-        OrganizationMember,
-        WorkspaceMember,
-        Invitation,
-        Asset,
-        AssetVersion,
-        AuditLog,
-        Model,
-        ModelUsage,
-        TextDocument,
-        TextVersion,
-        ImageAsset,
-        ImageVersion,
+        User, ApiKey, Organization, Workspace, OrganizationMember, WorkspaceMember, Invitation,
+        Asset, AssetVersion, AuditLog, Model, ModelUsage,
+        TextDocument, TextVersion, ImageAsset, ImageVersion,
+        VideoAsset, VideoSegment, AudioAsset,
+        Document, CodeRepository, Model3D,
       ],
       migrations: ['dist/migrations/*.js'],
       synchronize: process.env.NODE_ENV === 'development',
       logging: process.env.NODE_ENV === 'development',
     }),
 
-    // GraphQL
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
@@ -80,10 +89,7 @@ import { ImageVersion } from './studios/image/entities/image-version.entity';
       },
     }),
 
-    // Common/Shared modules
     CommonModule,
-
-    // Feature modules
     HealthModule,
     AuthModule,
     WorkspaceModule,
@@ -91,6 +97,15 @@ import { ImageVersion } from './studios/image/entities/image-version.entity';
     AIModule,
     TextModule,
     ImageModule,
+    VideoModule,
+    AudioModule,
+    DocumentModule,
+    CodeModule,
+    ThreeDModule,
+    WorkflowModule,
+    AgentModule,
+    GovernanceModule,
+    MarketplaceModule,
   ],
   controllers: [],
   providers: [],
