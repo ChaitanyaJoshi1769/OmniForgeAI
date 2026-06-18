@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './auth/auth.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { AssetModule } from './asset/asset.module';
+import { AIModule } from './ai/ai.module';
 import { HealthModule } from './health/health.module';
 import { CommonModule } from './common/common.module';
 import { User } from './auth/entities/user.entity';
@@ -18,6 +19,8 @@ import { Invitation } from './workspace/entities/invitation.entity';
 import { Asset } from './asset/entities/asset.entity';
 import { AssetVersion } from './asset/entities/asset-version.entity';
 import { AuditLog } from './common/entities/audit-log.entity';
+import { Model } from './ai/entities/model.entity';
+import { ModelUsage } from './ai/entities/model-usage.entity';
 
 @Module({
   imports: [
@@ -46,6 +49,8 @@ import { AuditLog } from './common/entities/audit-log.entity';
         Asset,
         AssetVersion,
         AuditLog,
+        Model,
+        ModelUsage,
       ],
       migrations: ['dist/migrations/*.js'],
       synchronize: process.env.NODE_ENV === 'development',
@@ -73,6 +78,7 @@ import { AuditLog } from './common/entities/audit-log.entity';
     AuthModule,
     WorkspaceModule,
     AssetModule,
+    AIModule,
   ],
   controllers: [],
   providers: [],
