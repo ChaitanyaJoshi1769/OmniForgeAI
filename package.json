@@ -1,0 +1,57 @@
+{
+  "name": "omniforge-ai",
+  "version": "0.0.1",
+  "description": "Enterprise-grade multimodal AI platform",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "services/*",
+    "libs/*",
+    "infrastructure/*"
+  ],
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "bootstrap": "npm install",
+    "dev": "nx run-many --target=serve --projects=backend,frontend --parallel=2",
+    "dev:backend": "nx serve backend",
+    "dev:frontend": "nx serve frontend",
+    "build": "nx run-many --target=build --projects=backend,frontend",
+    "build:backend": "nx build backend",
+    "build:frontend": "nx build frontend",
+    "test": "nx run-many --target=test --all",
+    "test:backend": "nx test backend",
+    "test:frontend": "nx test frontend",
+    "lint": "nx run-many --target=lint --all",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "type-check": "nx run-many --target=type-check --all",
+    "docker:build": "docker build -t omniforge-ai:latest .",
+    "docker:push": "docker push omniforge-ai:latest",
+    "deploy:staging": "kubectl apply -f ./k8s/staging/",
+    "deploy:production": "kubectl apply -f ./k8s/production/",
+    "db:migrate": "knex migrate:latest",
+    "db:seed": "knex seed:run",
+    "docs": "typedoc --out ./docs/api",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "precommit": "lint-staged",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0",
+    "nx": "^18.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
+}

@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../../base
+
+namespace: omniforge-staging
+
+replicas:
+  - name: omniforge-backend
+    count: 2
+
+images:
+  - name: ghcr.io/chaitanyajoshi1769/omniforge-ai
+    newTag: staging
+
+patchesStrategicMerge:
+  - deployment-patch.yaml
+
+commonLabels:
+  environment: staging
+
+commonAnnotations:
+  environment: staging
